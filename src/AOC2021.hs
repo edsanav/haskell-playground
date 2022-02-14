@@ -5,16 +5,18 @@ import qualified Data.Text as T
 import Data.List (intercalate)
 
 
-newtype Checkeable = Checkeable {nums :: [(Int, Bool)]} deriving Show
+type Checkeable = [(Int, Bool)]
 
-newtype Panel = Panel {rows::[Checkeable]} deriving Show
+type Panel = [Checkeable]
 
-cols :: Panel -> [Checkeable]
-cols p =
---  let rowIdx row = init [0..length . nums $ row]
--- [[(nums row) !! i | i <- rowIdx]  | row <- rows pan2] 
-  [Checkeable [(1,True)]]
+isLine :: Checkeable -> Bool
+isLine = all snd
 
+getCol :: Int -> Panel -> Checkeable
+getCol i p = 
+  let withCol = [zip [0..] row | row <- p]
+      cols = filter (\x -> fst x == i) (concat withCol)
+  in map snd cols
 
 readMyContent :: String -> ([Int], [String])
 readMyContent fileContent =
