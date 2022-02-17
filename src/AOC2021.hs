@@ -43,13 +43,25 @@ readMyContent fileContent =
       readPanel pStr = map (map (, False) . readNumsLine) (lines pStr)
   in (numbers, map readPanel (tail inputList))
 
+-- TODO multiply by last number
+
 firstWin :: [Panel] -> Int -> ([Panel], Maybe Int)
 firstWin ps n = (nps, result $ filter isWinner nps)
         where 
           nps = map (draw n) ps
           result [x] = Just (sum $ unchecked x)
           result _ = Nothing
-                                        
+          
+lastWin :: [Panel] -> Int -> ([Panel], Maybe Int)
+lastWin ps n = 
+      if any isWinner nps
+      then (nps, Nothing)
+      else (nps, result $ filter (not. isWinner) ps)
+      where 
+          nps = map (draw n) ps
+          result [x] = Just (sum (unchecked (draw n x)))
+          result _ = Nothing
+             
 
 run :: IO ()
 run = do
