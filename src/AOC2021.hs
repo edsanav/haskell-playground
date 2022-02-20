@@ -6,7 +6,6 @@ import Data.Function (on)
 import Data.List (groupBy, intercalate, sortBy)
 import qualified Data.Text as T
 import Paths_haskell_playground
-import Debug.Trace (trace)
 
 type Checkeable = [(Int, Bool)]
 
@@ -65,11 +64,11 @@ firstWin ps n = (nps, result $ filter isWinner nps)
 
 lastWin :: [Panel] -> Int -> ([Panel], Maybe Int)
 lastWin ps n =
-  if any isWinner nps
-    then (nps, Nothing)
-    else (nps, result $ filter (not . isWinner) ps)
+  if all isWinner nps
+    then (nps, result $ filter (not . isWinner) ps)
+    else (nps, Nothing)
   where
-    nps = trace ( show n ++ "\n" ++ (formatPanel (ps !! 1))) map (draw n) ps
+    nps = map (draw n) ps
     result [x] = Just (n * sum (unchecked (draw n x)))
     result _ = Nothing
 
@@ -80,16 +79,6 @@ loop (x:xs) ps step =
     (nps, Nothing) -> loop xs nps step
     (_,  res) -> res
 
---run :: IO ()
---run = do
---  file <- getDataFileName "resources/sample.txt"
---  mydata <- readFile file
---  let (instructions, panelString) = readMyContent mydata
---      loadedGame = loop instructions panelString
---      result1 = loadedGame firstWin
---      result2 = loadedGame lastWin
---      putStrLn $ "Your data is: " ++ (show result1) "---" (show result2)
---
 formatPanel:: Panel -> String
 formatPanel p = Data.List.intercalate "\n" (map show p)
 
