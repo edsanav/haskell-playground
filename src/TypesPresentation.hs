@@ -55,3 +55,16 @@ data MyMaybeString = NothingString | JustString String
 --a -> a 
 --Num a => a -> a -> a 
 --Int -> Int -> Int
+
+
+myfunction:: Int -> Int -> Int
+myfunction x y = x + y
+
+
+myfunction2:: a -> a -> a
+myfunction2 x y = x 
+
+
+myfunction3:: Num a => a -> a -> a
+myfunction3 x y = x + y
+
