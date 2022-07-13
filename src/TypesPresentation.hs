@@ -24,7 +24,7 @@ data Pet = Cat | Dog String
 
 
 
-data SpecialBool = True | False
+--data SpecialBool = True | False
 
 type Coord = Double
 data Point = Point Coord Coord Coord
