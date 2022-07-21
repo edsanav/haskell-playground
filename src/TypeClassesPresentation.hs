@@ -53,3 +53,14 @@ data NoEq = NoEqA | NoEqB
 
 --instance Ord a => Eq (Pet a) where
 -- (==) (Dog v) (Dog v') = compare v v' == EQ
+
+
+-- You don't have to implement all of the methods by hand,
+--
+
+data Mood = Blah | Bleh
+
+instance Show Mood where
+  show Blah = "blah"
+  show Bleh = "bleh"
+
