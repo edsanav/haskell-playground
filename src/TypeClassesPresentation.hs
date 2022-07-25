@@ -10,7 +10,21 @@ module TypeClassesPresentation where
 --instance Enum Bool
 --instance Bounded Bool
 
+areTheyEqual:: Eq a => a -> a -> String
+areTheyEqual x y = 
+  if (x == y) then "They are the same thing" 
+  else "MEEEECK" 
+  
+data Pet = Cat | Dog String
 
+whatPet:: Pet -> String
+whatPet (Cat) = "it is a cat"
+whatPet (Dog x) = "it is a dog"
+
+instance Eq Pet where
+  (==) Cat Cat = True
+  (==) (Dog x) (Dog y) = x == y 
+  (==) _ _ = False
 
 data DayOfWeek = Mon | Tue | Weds | Thu | Fri | Sat | Sun
 -- day of week and numerical day of month
@@ -41,13 +55,6 @@ capital :: String -> String
 capital "" = "Empty string, whoops!"
 capital all@(x:xs) = "The first letter of " ++ all ++ " is " ++ [x]
 -----------
-
-data Pet a = Dog a
-
-
-
-instance Eq a => Eq (Pet a) where
-  (==) (Dog a) (Dog a') = a == a'
 
 data NoEq = NoEqA | NoEqB
 
