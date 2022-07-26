@@ -70,4 +70,20 @@ data Mood = Blah | Bleh
 instance Show Mood where
   show Blah = "blah"
   show Bleh = "bleh"
+  
+data SpecialPet a = Snake a
 
+instance Eq a => Eq (SpecialPet a) where
+  (==) (Snake a) (Snake a') = a == a'
+
+--[1 of 1] Compiling TypeClassesPresentation ( src/TypeClassesPresentation.hs, interpreted )
+--
+--src/TypeClassesPresentation.hs:77:31: error:
+--    • No instance for (Eq a) arising from a use of ‘==’
+--      Possible fix: add (Eq a) to the context of the instance declaration
+--    • In the expression: a == a'
+--      In an equation for ‘==’: (==) (Snake a) (Snake a') = a == a'
+--      In the instance declaration for ‘Eq (SpecialPet a)’
+--   |
+--77 |   (==) (Snake a) (Snake a') = a == a'
+--   |                               ^^^^^^^
